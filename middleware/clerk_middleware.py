@@ -1,4 +1,4 @@
-import os 
+import os
 import traceback
 import logging
 
@@ -24,6 +24,11 @@ async def clerk_middleware(request: Request, call_next):
         Response: JSONResponse object
     """
     try:
+        # Allow access to public routes like /docs
+        if request.url.path == "/docs" or request.url.path == "/openapi.json":
+            response = await call_next(request)
+            return response
+
         auth_header = request.headers.get("Authorization")
         if auth_header:
             try:
