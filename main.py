@@ -36,3 +36,7 @@ async def root():
 app.include_router(agents_router.router, prefix="/api/v1", tags=["agents"])
 app.include_router(teams_router.router, prefix="/api/v1", tags=["teams"])
 app.include_router(tools_router.router, prefix="/api/v1", tags=["tools"])
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
